@@ -58,7 +58,7 @@ export default class ServerProt {
     static readonly UPDATE_STAT: number = 44; // NXT naming
     static readonly UPDATE_RUNENERGY: number = 68; // NXT naming
     static readonly RESET_ANIMS: number = 136; // NXT naming
-    static readonly UPDATE_UID192: number = 139; // NXT naming (not 100% certain if "uid192" means local player)
+    static readonly UPDATE_PID: number = 139;
     static readonly LAST_LOGIN_INFO: number = 140; // NXT naming
     static readonly LOGOUT: number = 142; // NXT naming
     static readonly P_COUNTDIALOG: number = 243; // named after runescript command + client resume_p_countdialog packet

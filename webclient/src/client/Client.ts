@@ -3133,6 +3133,7 @@ export class Client extends GameShell {
         this.scene?.draw(this.cameraX, this.cameraY, this.cameraZ, level, this.cameraYaw, this.cameraPitch, this.loopCycle);
         this.scene?.clearTemporaryLocs();
         this.draw2DEntityElements();
+        this.drawTileHint();
         this.updateTextures(jitter);
         this.draw3DEntityElements();
         this.areaViewport?.draw(8, 11);
@@ -3375,6 +3376,18 @@ export class Client extends GameShell {
                 this.fontBold12?.drawStringCenter(this.projectX, this.projectY + 1, message, Colors.BLACK);
                 this.fontBold12?.drawStringCenter(this.projectX, this.projectY, message, Colors.YELLOW);
             }
+        }
+    };
+
+    private drawTileHint = (): void => {
+        if (this.hintType !== 2 || !this.imageHeadicons[2]) {
+            return;
+        }
+
+        this.projectFromGround(((this.hintTileX - this.sceneBaseTileX) << 7) + this.hintOffsetX, this.hintHeight * 2, ((this.hintTileZ - this.sceneBaseTileZ) << 7) + this.hintOffsetZ);
+
+        if (this.projectX > -1 && this.loopCycle % 20 < 10) {
+            this.imageHeadicons[2].draw(this.projectX - 12, this.projectY - 28);
         }
     };
 
@@ -5048,7 +5061,7 @@ export class Client extends GameShell {
             this.closeInterfaces();
 
             if (this.reportAbuseInput.length > 0) {
-                this.out.p1isaac(ClientProt.BUG_REPORT);
+                this.out.p1isaac(ClientProt.REPORT_ABUSE);
                 this.out.p8(JString.toBase37(this.reportAbuseInput));
                 this.out.p1(clientCode - 601);
                 this.out.p1(this.reportAbuseMuteOption ? 1 : 0);
@@ -6275,8 +6288,8 @@ export class Client extends GameShell {
                 this.packetType = -1;
                 return true;
             }
-            if (this.packetType === ServerProt.UPDATE_UID192) {
-                // UPDATE_UID192
+            if (this.packetType === ServerProt.UPDATE_PID) {
+                // UPDATE_PID
                 this.localPid = this.in.g2;
                 this.packetType = -1;
                 return true;

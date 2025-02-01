@@ -79,7 +79,7 @@ export default class ClientProt {
     static readonly TUTORIAL_CLICKSIDE: number = 175; // index: 204
 
     static readonly MOVE_OPCLICK: number = 93; // index: 242 - comes with OP packets; name based on other MOVE packets
-    static readonly BUG_REPORT: number = 190; // index: 243 - NXT naming
+    static readonly REPORT_ABUSE: number = 190; // index: 243
     static readonly MOVE_MINIMAPCLICK: number = 165; // index: 244 - NXT naming
     static readonly INV_BUTTOND: number = 159; // index: 245 - NXT has "IF_BUTTOND" but for our interface system; this makes more sense
     static readonly IGNORELIST_DEL: number = 171; // index: 246 - NXT naming
