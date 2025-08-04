@@ -12,11 +12,8 @@ if(inzone(0_42_52_34_45, 0_42_52_45_56, npc_coord) = true) {
         @multi2("Yes, I'll train now.", radimus_training, "No, I've got something else to do at the moment.", radimus_somethingelse);
     } else if(%legends_progress = ^legends_radimus_training_4) {
         queue(legends_quest_complete, 0);
-    } else  {
-        ~chatnpc("<p,neutral>Hello there! How are you enjoying the Legends Guild?");
-        ~mesbox("Radimus looks busy...");
-        ~chatnpc("<p,neutral>Excuse me a moment, won't you?|Do feel free to explore the rest of the building.");
     }
+    @radimus_postquest;
     return;
 }
 if (%legends_progress = ^legends_not_started) {
@@ -29,29 +26,45 @@ if (%legends_progress = ^legends_not_started) {
         @radimus_erkle_hand_in_totem;
 } else if (%legends_progress >= ^legends_returned_to_radimus & %legends_progress < ^legends_complete) {
     ~chatnpc("<p,neutral>Hello again! Do go through to the main Legends Guild Hall I'll meet you in there and we can discuss your reward!");
-} else {
-    ~chatnpc("<p,neutral>Hello there, how is the quest going?");
-    @radimus_erkle_midquest;
 }
+@radimus_postquest;
 
 [opnpcu,radimus_erkle]
+if(%legends_progress >= ^legends_returned_to_radimus) { // RS3
+    ~chatnpc("<p,neutral>Sorry old bean, but I don't really need that!");
+    return;
+}
 switch_obj(last_useitem) {
-    case thkaramjamapcomp : 
+    case thkaramjamapcomp :
+        if(%legends_progress = ^legends_got_gilded_totem) {
+            if (inv_total(inv, thkaramjamapcomp) = 0) {
+                ~chatnpc("<p,neutral>It's very nice, <text_gender("Sir", "Madam")>, but we also need something special to display in the Legends Guild.");
+            } else {
+                @radimus_erkle_hand_in_totem;
+            }
+            return;
+        }
         ~chatnpc("<p,neutral>Well done, <text_gender("Sir", "Madam")>, very well done. However, you'll probably need it while you search for natives of the Kharazi tribe in the Kharazi Jungle.");
         ~chatnpc("<p,neutral>Remember, we would like a special token of friendship from them to place in the Legends Guild. I'll take the map off your hands once we get the proof that you have met the natives.");
     case thtotempole :
         ~chatnpc("<p,neutral>Hmmm, well, it is very impressive. Especially since it looks very heavy... However, it lacks a certain authenticity, my guess is that you made it, though I'm not sure why.");
         ~chatnpc("<p,neutral>We would like to have a really nice item to put on display in the Legends Guild main hall. Do you think you could get something more authentic?");
     case thtotempolegift : 
-        if (inv_total(inv, thkaramjamapcomp) = 0) {
-            ~chatnpc("<p,neutral>It's very nice, <text_gender("Sir", "Madam")>, but we also need something special to display in the Legends Guild.");
-        }
-        else {
-            @radimus_erkle_hand_in_totem;
+        if(%legends_progress = ^legends_got_gilded_totem) {
+            if (inv_total(inv, thkaramjamapcomp) = 0) {
+                ~chatnpc("<p,neutral>It's very nice, <text_gender("Sir", "Madam")>, but I need you to complete the map as well.");
+            } else {
+                @radimus_erkle_hand_in_totem;
+            }
         }
     case default : 
         ~chatnpc("<p,neutral>Sorry old bean, but I don't really need that!");
 }
+
+[label,radimus_postquest]
+~chatnpc("<p,neutral>Hello there! How are you enjoying the Legends Guild?");
+~mesbox("Radimus looks busy...");
+~chatnpc("<p,neutral>Excuse me a moment, won't you?|Do feel free to explore the rest of the building.");
 
 [label,radimus_training]
 if(%legends_progress >= ^legends_radimus_training_4) {
@@ -118,6 +131,7 @@ if(string_length($skill_name) > 7) {
 
 [label,radimus_erkle_hand_in_totem]
 ~chatnpc("<p,happy>Well, it looks as if you have some interesting items there. Let's have a look at them!|@blu@--Sir Radimus sees the gilded totem pole.--");
+~mesbox("You show the totem pole to Sir Radimus.");
 // todo: mesanim check
 ~chatnpc("<p,neutral><text_gender("Sir", "Madam")>, this is truly amazing...");
 ~chatnpc("<p,neutral>That totem pole will take pride of place in the Legends Guild as a reminder of your quest to gain entry. And so that many other great adventurers can admire your bravery.");

@@ -130,11 +130,18 @@ else {
 }
 
 [oploc2,legends_radimus_cupboard_open]
-// No quest progress check here
-if (inv_total(inv, machette) > 0 | inv_total(worn, machette) > 0) {
-    ~mesbox("You don't think Radimus Erkle would be too pleased if he caught|you rifling through his cupboards without permission.");
+if(npc_find(coord, radimus_erkle, 5, 0) = false) {
+    return;
 }
-else {
+if(%legends_progress >= ^legends_complete) {
+    ~chatnpc("<p,neutral>Hey, I think it's about time you started buying your own machetes. I'm sure there must be some jungle native down in Karamja who can sell you one.");
+    return;
+}
+if (inv_total(inv, machette) > 0 | inv_total(worn, machette) > 0) {
+    ~chatnpc("<p,neutral>Hey, you've already got one machete, you don't need two do you?");
+} else if (inv_total(bank, machette) > 0) {
+    ~chatnpc("<p,neutral>Hey, I hear that you have enough machetes in your bank to start your own store. Please don't take my generosity for granted.");
+} else {
     // No inv space check
     inv_add(inv, machette, 1);
     ~objbox(machette, "You find a machete in the cupboard.", 250, 0, 0);
@@ -2043,7 +2050,7 @@ if(%legends_progress < ^legends_replaced_totem) {
     ~mesbox("This totem pole looks corrupted. You don't like to look at it for too long.");
 } else if(%legends_progress >= ^legends_replaced_totem) {
     loc_change(legends_totem_pole_2, 20);
-    ~mesbox("This totem pole is truly awe inspiring. It depicts powerful Karamjan animals. It is very well carved and brings a sense of power and spiritual fulfillment to anyone who looks at it.");
+    ~mesbox("This totem pole is truly awe inspiring. It depicts powerful Karamja jungle animals. It is very well carved and brings a sense of power and spiritual fulfillment to anyone who looks at it.");
 }
 
 [oploc1,legends_totem_pole_2]
@@ -2051,13 +2058,13 @@ if(%legends_progress < ^legends_replaced_totem) {
     loc_change(legends_totem_pole_3, 20);
     ~mesbox("This totem pole corrupted. You don't like to look at it for too long.");
 } else if(%legends_progress >= ^legends_replaced_totem) {
-    ~mesbox("This totem pole is truly awe inspiring. It depicts powerful Karamjan animals. It is very well carved and brings a sense of power and spiritual fulfillment to anyone who looks at it.");
+    ~mesbox("This totem pole is truly awe inspiring. It depicts powerful Karamja jungle animals. It is very well carved and brings a sense of power and spiritual fulfillment to anyone who looks at it.");
 }
 
 // no script for pole_3
 
 [oploc1,legends_totem_pole_4]
-~mesbox("This totem pole is truly awe inspiring. It depicts powerful Karamjan animals. It is very well carved and brings a sense of power and spiritual fulfillment to anyone who looks at it.");
+~mesbox("This totem pole is truly awe inspiring. It depicts powerful Karamja jungle animals. It is very well carved and brings a sense of power and spiritual fulfillment to anyone who looks at it.");
 
 [queue,legends_quest_complete]
 session_log(^log_adventure, "Quest complete: Legends Quest");
