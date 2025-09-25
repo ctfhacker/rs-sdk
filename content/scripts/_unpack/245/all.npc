@@ -350,8 +350,7 @@ op1=Talk-to
 head1=model_53_idk_head
 head2=npc_1024_head
 
-// todo
-[canafis_man4]
+[werewolfroadblocker]
 name=Man
 model1=model_215_idk
 model2=model_246_idk
