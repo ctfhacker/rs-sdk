@@ -252,11 +252,11 @@ export default class World {
 
             scene?.setWallDecoration(level, x, z, y, 0, 0, typecode1, model, typecode2, angle * 512, World.ROTATION_WALL_TYPE[angle]);
         } else if (shape === LocShape.WALLDECOR_STRAIGHT_OFFSET.id) {
-            let offset: number = 16;
+            let wallwidth: number = 16;
             if (scene) {
                 const typecode: number = scene.getWallTypecode(level, x, z);
                 if (typecode > 0) {
-                    offset = LocType.get((typecode >> 14) & 0x7fff).wallwidth;
+                    wallwidth = LocType.get((typecode >> 14) & 0x7fff).wallwidth;
                 }
             }
 
@@ -272,8 +272,8 @@ export default class World {
                 x,
                 z,
                 y,
-                World.WALL_DECORATION_ROTATION_FORWARD_X[angle] * offset,
-                World.WALL_DECORATION_ROTATION_FORWARD_Z[angle] * offset,
+                World.WALL_DECORATION_ROTATION_FORWARD_X[angle] * wallwidth,
+                World.WALL_DECORATION_ROTATION_FORWARD_Z[angle] * wallwidth,
                 typecode1,
                 model,
                 typecode2,

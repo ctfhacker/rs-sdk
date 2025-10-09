@@ -3,10 +3,11 @@ import AnimFrame from '#/dash3d/AnimFrame.js';
 import Pix2D from '#/graphics/Pix2D.js';
 import Pix3D from '#/graphics/Pix3D.js';
 
-import { Int32Array2d, TypedArray1d } from '#/util/Arrays.js';
-import ModelSource from '#/dash3d/ModelSource.js';
-import VertexNormal from '#/dash3d/VertexNormal';
 import Packet from '#/io/Packet.js';
+
+import { Int32Array2d, TypedArray1d } from '#/util/Arrays.js';
+import VertexNormal from '#/dash3d/VertexNormal.js';
+import ModelSource from '#/dash3d/ModelSource.js';
 import type OnDemandProvider from '#/io/OnDemandProvider.js';
 
 class Metadata {
@@ -320,7 +321,7 @@ export default class Model extends ModelSource {
 
         Model.loaded++;
 
-        const info = Model.meta[id];
+        const info = Model.meta[id]!;
         const model = new Model();
 		model.vertexCount = info.vertexCount;
 		model.faceCount = info.faceCount;

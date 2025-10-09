@@ -65,7 +65,7 @@ import WordPack from '#/wordenc/WordPack.js';
 
 import Wave from '#/sound/Wave.js';
 import OnDemand from '#/io/OnDemand.js';
-import MobileKeyboard from '#/client/MobileKeyboard.ts';
+import MobileKeyboard from '#/client/MobileKeyboard.js';
 
 const enum Constants {
     CLIENT_VERSION = 245,
@@ -2112,7 +2112,7 @@ export class Client extends GameShell {
                 this.levelCollisionMap[level]?.reset();
             }
 
-            const world: World = new World(CollisionConstants.SIZE, CollisionConstants.SIZE, this.levelHeightmap!, this.levelTileFlags!, this.levelShadowmap!);
+            const world: World = new World(CollisionConstants.SIZE, CollisionConstants.SIZE, this.levelHeightmap!, this.levelTileFlags!);
             World.lowMemory = World3D.lowMemory;
 
             const maps: number = this.sceneMapLandData?.length ?? 0;
@@ -2477,6 +2477,7 @@ export class Client extends GameShell {
 
         this.lastHoveredInterfaceId = 0;
 
+        // the chatbox area
         if (this.mouseX > 17 && this.mouseY > 357 && this.mouseX < 426 && this.mouseY < 453) {
             if (this.chatInterfaceId !== -1) {
                 this.handleInterfaceInput(Component.types[this.chatInterfaceId], this.mouseX, this.mouseY, 17, 357, 0);

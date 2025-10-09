@@ -20,7 +20,7 @@ import Model from '#/dash3d/Model.js';
 
 import { Int32Array3d, TypedArray1d, TypedArray2d, TypedArray3d, TypedArray4d } from '#/util/Arrays.js';
 import type ModelSource from '#/dash3d/ModelSource.js';
-import type VertexNormal from '#/dash3d/VertexNormal';
+import type VertexNormal from '#/dash3d/VertexNormal.js';
 
 export default class World3D {
     private static visibilityMatrix: boolean[][][][] = new TypedArray4d(8, 32, 51, 51, false);

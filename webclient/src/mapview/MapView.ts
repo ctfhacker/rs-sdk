@@ -1,5 +1,5 @@
 import GameShell from '#/client/GameShell.js';
-import Pix32 from '#/graphics/Pix32';
+import Pix32 from '#/graphics/Pix32.js';
 import Pix2D from '#/graphics/Pix2D.js';
 import Pix8 from '#/graphics/Pix8.js';
 import PixFont from '#/graphics/PixFont.js';

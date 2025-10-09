@@ -28,8 +28,8 @@ export default class Wave {
             }
 
             this.tracks[id] = new Wave();
-            this.tracks[id].read(dat);
-            this.delays[id] = this.tracks[id].trim();
+            this.tracks[id]!.read(dat);
+            this.delays[id] = this.tracks[id]!.trim();
         }
     }
 
